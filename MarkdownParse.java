@@ -25,6 +25,11 @@ public class MarkdownParse {
             if (openParen == -1){
                 break;
             }
+            int nextBracket = markdown.indexOf("[", closeBracket);
+            if (nextBracket > closeBracket && nextBracket < openParen) {
+                currentIndex = closeBracket;
+                continue;
+            }
             int closeParen = markdown.indexOf(")", openParen);
             if (closeParen == -1){
                 break;
@@ -35,9 +40,6 @@ public class MarkdownParse {
                 }
             }
             currentIndex = closeParen + 1;   
-        }
-        if (toReturn.size() == 0) {
-            toReturn.add("no links found");
         }
         return toReturn;
     }
